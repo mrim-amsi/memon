@@ -1,0 +1,30 @@
+﻿@model List<Category>
+
+@{
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <td>
+                Name
+            </td>
+            <td>
+                Posts Count
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(Category category in Model)
+        {
+            <tr>
+                <td>
+                    @category.Name
+                </td>
+                <td>
+                    @category.Posts.Count
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

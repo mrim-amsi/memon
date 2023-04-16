@@ -1,0 +1,17 @@
+﻿@model AddPostVM
+@{
+}
+
+
+<form asp-action="Add" method="post" enctype="multipart/form-data">
+    <label asp-for="Title"></label>
+    <input class="form-control" asp-for="Title" />
+    <label asp-for="Body"></label>
+    <input class="form-control" asp-for="Body" />
+    <label asp-for="CategoryId"></label>
+    <select class="form-control" asp-for="CategoryId" asp-items="Model.categories">
+    </select>
+    <input type="file" asp-for="Image" />
+    <hr />
+    <input type="submit" value="Add Post" />
+</form>

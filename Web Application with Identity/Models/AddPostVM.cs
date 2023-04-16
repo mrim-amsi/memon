@@ -1,0 +1,20 @@
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Web_Application_with_Identity.Models;
+
+namespace Web_Application_with_Identity
+{
+    public class AddPostVM
+    {
+        //public Post Post { get; set; }
+        public string Title { get; set; }
+
+        public string Body { get; set; }
+
+        public int CategoryId { get; set; }
+
+        public IFormFile Image { get; set; }
+
+        public IEnumerable<SelectListItem> categories { get; set; }
+
+    }
+}

@@ -1,0 +1,67 @@
+﻿@model List<Post>
+@{
+}
+
+<a class="btn btn-primary" asp-action="Add" asp-controller="Post">Add Post</a>
+
+@if (TempData["success"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["success"]
+    </div>
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <td>
+                Image
+            </td>
+            <td>
+                Post ID
+            </td>
+            <td>
+                Title
+            </td>
+            <td>
+                Created at
+            </td>
+            <td>
+                Category
+            </td>
+            <td>
+                Tags
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Post item in Model)
+        {
+            <tr>
+                <td>
+                    <img style="width:50px;height:50px; object-fit:cover; border-radius:50%;" src="~/Images/@item.ImageName" />
+                </td>
+                <td>
+                    @item.Id
+                </td>
+                <td>
+                    @item.Title
+                </td>
+                <td>
+                    @item.CreatedAt.ToString("dd/MM/yyyy")
+                </td>
+                <td>
+                    @item.Category.Name
+                </td>
+                <td>
+                    @foreach (var tag in item.PostTags)
+                    {
+                        @tag.Tag.Name
+                    }
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
