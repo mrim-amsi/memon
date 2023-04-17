@@ -3,11 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Web_Application_with_Identity.Models;
 
-namespace Web_Application_with_Identity.Api.Controllers
+namespace Web_Application_with_Identity.Controllers.Api
 {
-    [Route("api/auth")]
-    [ApiController]
-    public class AccountApiController : ControllerBase
+    public class AccountApiController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
@@ -18,12 +16,30 @@ namespace Web_Application_with_Identity.Api.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
-        //public IActionResult Register()
-        //{
-        //    return View();
-        //}
-        [HttpPost]
-        [Route("register")]
+
+        public async Task<ActionResult<IdentityUser>> GetUser(string username)
+        {
+            IdentityUser user = await _userManager.FindByNameAsync(username);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return user;
+        }
+
+        public async Task<ActionResult> GetUsers(LoginViewModel a)
+        {
+            var result = await _signInManager.PasswordSignInAsync(a.Email, a.Password, false, false);
+
+           
+
+            return Ok(a.Email);
+        }
+
+
+
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
@@ -53,16 +69,8 @@ namespace Web_Application_with_Identity.Api.Controllers
             }
             return BadRequest(ModelState);
         }
-        //[HttpPost]
-        //[AllowAnonymous]
-        //public IActionResult Login()
-        //{
-        //    return View();
-        //}
-        [HttpPost]
-        [Route("login")]
-        [AllowAnonymous]
-        public async Task<IActionResult> Login(LoginViewModel user)
+      
+        public async Task<ActionResult> Login(LoginViewModel user)
         {
             if (ModelState.IsValid)
             {
@@ -74,15 +82,11 @@ namespace Web_Application_with_Identity.Api.Controllers
                 }
 
                 ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
-
+               return Ok(result);
             }
-            return BadRequest(ModelState);
+            return Ok("Invalid Login Attempt");
         }
-        [HttpPost]
-        public async Task<IActionResult> Logout()
-        {
-            await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
-        }
+
+        
     }
 }

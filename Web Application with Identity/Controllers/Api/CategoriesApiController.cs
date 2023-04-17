@@ -4,17 +4,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Web_Application_with_Identity.Api.Controllers
 {
-    [Route("api/Categories")]
-    [ApiController]
-    public class CategoriesController : Controller
+
+    public class CategoriesApiController : Controller
     {
         private readonly AppDBContext _context;
 
-        public CategoriesController(AppDBContext postDbContext)
+        public CategoriesApiController(AppDBContext postDbContext)
         {
             _context = postDbContext;
         }
-        [HttpGet]
+
         public IActionResult Get()
         {
             List<Category> categories =

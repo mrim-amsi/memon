@@ -5,21 +5,19 @@ using Web_Application_with_Identity.Models;
 
 namespace Web_Application_with_Identity.Api.Controllers
 {
-    [Route("api/posts")]
-    [ApiController]
-    public class PostController : ControllerBase
+
+    public class PostApiController : ControllerBase
     {
         private readonly AppDBContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
 
-        public PostController(AppDBContext postDbContext, IWebHostEnvironment webHostEnvironment)
+        public PostApiController(AppDBContext postDbContext, IWebHostEnvironment webHostEnvironment)
         {
             _context = postDbContext;
             _hostEnvironment = webHostEnvironment;
         }
       
 
-        [HttpGet]
         public async Task<IActionResult> Get()
         {
             List<Post> posts = _context.Posts.Include(x => x.Category)
@@ -31,7 +29,6 @@ namespace Web_Application_with_Identity.Api.Controllers
         }
 
   
-        [HttpPost]
         public IActionResult Post(AddPostVM post)
         {
 

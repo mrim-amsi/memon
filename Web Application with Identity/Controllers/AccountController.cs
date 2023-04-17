@@ -83,5 +83,18 @@ namespace Web_Application_with_Identity.Controllers
 
             return RedirectToAction("Login");
         }
+
+
+        public async Task<ActionResult<IdentityUser>> GetUser(string username)
+        {
+            IdentityUser user = await _userManager.FindByNameAsync(username);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return user;
+        }
     }
 }
