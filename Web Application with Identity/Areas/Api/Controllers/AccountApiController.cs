@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Web_Application_with_Identity.Models;
 
-namespace Web_Application_with_Identity.Controllers.Api
+namespace Web_Application_with_Identity.Areas.Api.Controllers
 {
     public class AccountApiController : Controller
     {
@@ -33,7 +33,7 @@ namespace Web_Application_with_Identity.Controllers.Api
         {
             var result = await _signInManager.PasswordSignInAsync(a.Email, a.Password, false, false);
 
-           
+
 
             return Ok(a.Email);
         }
@@ -69,7 +69,7 @@ namespace Web_Application_with_Identity.Controllers.Api
             }
             return BadRequest(ModelState);
         }
-      
+
         public async Task<ActionResult> Login(LoginViewModel user)
         {
             if (ModelState.IsValid)
@@ -82,11 +82,11 @@ namespace Web_Application_with_Identity.Controllers.Api
                 }
 
                 ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
-               return Ok(result);
+                return Ok(result);
             }
             return Ok("Invalid Login Attempt");
         }
 
-        
+
     }
 }

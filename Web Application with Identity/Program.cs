@@ -36,6 +36,10 @@ app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
+    name: "Api",
+    pattern: "Api/{controller=PostApi}/{action=Index}/{id?}"
+  );
+    endpoints.MapControllerRoute(
       name: "areas",
       pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
     );
@@ -43,6 +47,7 @@ app.UseEndpoints(endpoints =>
      name: "default",
      pattern: "{controller=Post}/{action=Index}/{id?}"
    );
+   
 });
 
 app.Run();

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Web_Application_with_Identity.Models;
 
-namespace Web_Application_with_Identity.Api.Controllers
+namespace Web_Application_with_Identity.Areas.Api.Controllers
 {
 
     public class PostApiController : ControllerBase
@@ -16,7 +16,7 @@ namespace Web_Application_with_Identity.Api.Controllers
             _context = postDbContext;
             _hostEnvironment = webHostEnvironment;
         }
-      
+
 
         public async Task<IActionResult> Get()
         {
@@ -28,7 +28,7 @@ namespace Web_Application_with_Identity.Api.Controllers
             return Ok(posts);
         }
 
-  
+
         public IActionResult Post(AddPostVM post)
         {
 
@@ -60,7 +60,7 @@ namespace Web_Application_with_Identity.Api.Controllers
 
             _context.SaveChanges();
 
-            return Ok();
+            return Ok("Done");
         }
     }
 }
