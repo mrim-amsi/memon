@@ -1,0 +1,13 @@
+﻿@model AddCategoryVM
+@{
+}
+
+
+<form asp-action="Add" method="post" enctype="multipart/form-data">
+    <label asp-for="Name"></label>
+    <input class="form-control" asp-for="Name" />
+
+    <input type="file" asp-for="Image" />
+    <hr />
+    <input type="submit" value="Add Category" />
+</form>

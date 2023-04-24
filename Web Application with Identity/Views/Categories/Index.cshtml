@@ -1,29 +1,51 @@
 ﻿@model List<Category>
+@{}
+<a class="btn btn-primary" asp-action="Add" asp-controller="Categories">Add Categories</a>
 
-@{
+@if (TempData["success"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["success"]
+    </div>
 }
+
 
 <table class="table">
     <thead>
         <tr>
             <td>
-                Name
+                Image
             </td>
             <td>
-                Posts Count
+                Post ID
+            </td>
+            <td>
+                Title
+            </td>
+            <td>
+                Created at
+            </td>
+            <td>
+                Category
+            </td>
+            <td>
+                Tags
             </td>
         </tr>
     </thead>
     <tbody>
-        @foreach(Category category in Model)
+        @foreach (Category item in Model)
         {
             <tr>
                 <td>
-                    @category.Name
+                    <img style="width:50px;height:50px; object-fit:cover; border-radius:50%;" src="~/Images/@item.ImageName" />
                 </td>
                 <td>
-                    @category.Posts.Count
+                    @item.Id
                 </td>
+                <td>
+                    @item.Name
+                </td>              
             </tr>
         }
     </tbody>
