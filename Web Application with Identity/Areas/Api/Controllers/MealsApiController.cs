@@ -6,12 +6,12 @@ using Web_Application_with_Identity.Models;
 namespace Web_Application_with_Identity.Areas.Api.Controllers
 {
 
-    public class PostApiController : ControllerBase
+    public class MealsApiController : ControllerBase
     {
         private readonly AppDBContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
 
-        public PostApiController(AppDBContext postDbContext, IWebHostEnvironment webHostEnvironment)
+        public MealsApiController(AppDBContext postDbContext, IWebHostEnvironment webHostEnvironment)
         {
             _context = postDbContext;
             _hostEnvironment = webHostEnvironment;
@@ -20,9 +20,7 @@ namespace Web_Application_with_Identity.Areas.Api.Controllers
 
         public async Task<IActionResult> Get()
         {
-            List<Post> posts = _context.Posts.Include(x => x.Category)
-                .Include(x => x.PostTags)
-                .ThenInclude(x => x.Tag)
+            List<meal> posts = _context.Meals
                 .ToList();
 
             return Ok(posts);
@@ -42,7 +40,7 @@ namespace Web_Application_with_Identity.Areas.Api.Controllers
             post.Image.CopyTo(new FileStream(filePath, FileMode.Create));
 
 
-            var postAdded = new Post
+            var postAdded = new meal
             {
                 Title = post.Title,
                 Body = post.Body,
@@ -51,12 +49,10 @@ namespace Web_Application_with_Identity.Areas.Api.Controllers
             };
 
 
-            _context.Posts.Add(postAdded);
+            _context.Meals.Add(postAdded);
 
             _context.SaveChanges();
 
-            _context.PostTags.Add(new PostTag { PostId = postAdded.Id, TagId = 1 });
-            _context.PostTags.Add(new PostTag { PostId = postAdded.Id, TagId = 2 });
 
             _context.SaveChanges();
 

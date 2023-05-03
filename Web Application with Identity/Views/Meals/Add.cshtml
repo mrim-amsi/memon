@@ -11,6 +11,9 @@
     <label asp-for="CategoryId"></label>
     <select class="form-control" asp-for="CategoryId" asp-items="Model.categories">
     </select>
+    <label asp-for="RestaurantId"></label>
+    <select class="form-control" asp-for="RestaurantId" asp-items="Model.restaurants">
+    </select>
     <input type="file" asp-for="Image" />
     <hr />
     <input type="submit" value="Add Post" />

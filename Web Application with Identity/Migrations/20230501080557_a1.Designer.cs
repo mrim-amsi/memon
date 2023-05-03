@@ -12,8 +12,8 @@ using Web_Application_with_Identity;
 namespace Web_Application_with_Identity.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20230416140810_s")]
-    partial class s
+    [Migration("20230501080557_a1")]
+    partial class a1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -222,6 +222,40 @@ namespace Web_Application_with_Identity.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Web_Application_with_Identity.Models.Ads", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Ads");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Image = "70057997-dd89-4629-97ff-317db877444a.png"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Image = "551dfb30-6e08-4f97-b69b-89a2a3f7f509.png"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Image = "01187183-441a-48f6-9645-9e18514d7047.png"
+                        });
+                });
+
             modelBuilder.Entity("Web_Application_with_Identity.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -229,6 +263,9 @@ namespace Web_Application_with_Identity.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ImageName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -242,21 +279,24 @@ namespace Web_Application_with_Identity.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "مأكولات"
+                            ImageName = "70057997-dd89-4629-97ff-317db877444a.png",
+                            Name = "أثاث"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "ملابس"
+                            ImageName = "551dfb30-6e08-4f97-b69b-89a2a3f7f509.png",
+                            Name = "مأكولات"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "أثاث"
+                            ImageName = "01187183-441a-48f6-9645-9e18514d7047.png",
+                            Name = "ملابس"
                         });
                 });
 
-            modelBuilder.Entity("Web_Application_with_Identity.Models.Post", b =>
+            modelBuilder.Entity("Web_Application_with_Identity.Models.meal", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -277,6 +317,9 @@ namespace Web_Application_with_Identity.Migrations
                     b.Property<string>("ImageName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("RestaurantId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -285,25 +328,24 @@ namespace Web_Application_with_Identity.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Posts");
+                    b.HasIndex("RestaurantId");
+
+                    b.ToTable("Meals");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 8,
+                            Body = "mypost Dess",
+                            CategoryId = 3,
+                            CreatedAt = new DateTime(2023, 5, 1, 11, 5, 57, 26, DateTimeKind.Local).AddTicks(1453),
+                            ImageName = "cfd9d7be-eb03-4176-adc1-0c909d0fd961.png",
+                            RestaurantId = 1,
+                            Title = "أكل"
+                        });
                 });
 
-            modelBuilder.Entity("Web_Application_with_Identity.Models.PostTag", b =>
-                {
-                    b.Property<int>("PostId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TagId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PostId", "TagId");
-
-                    b.HasIndex("TagId");
-
-                    b.ToTable("PostTags");
-                });
-
-            modelBuilder.Entity("Web_Application_with_Identity.Models.Tag", b =>
+            modelBuilder.Entity("Web_Application_with_Identity.Models.Restaurant", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -311,24 +353,34 @@ namespace Web_Application_with_Identity.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Logo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tags");
+                    b.ToTable("Restaurants");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            Name = "Sport"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Angular"
+                            Address = "الطائف",
+                            Image = "2d97e392-4a1c-41be-b879-6b6ac77071a7.png",
+                            Logo = "0a83cc23-0b13-4749-89a1-3469f667175b.png",
+                            Name = "KFC"
                         });
                 });
 
@@ -383,7 +435,7 @@ namespace Web_Application_with_Identity.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Web_Application_with_Identity.Models.Post", b =>
+            modelBuilder.Entity("Web_Application_with_Identity.Models.meal", b =>
                 {
                     b.HasOne("Web_Application_with_Identity.Models.Category", "Category")
                         .WithMany("Posts")
@@ -391,41 +443,20 @@ namespace Web_Application_with_Identity.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Web_Application_with_Identity.Models.Restaurant", "Restaurant")
+                        .WithMany()
+                        .HasForeignKey("RestaurantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Category");
-                });
 
-            modelBuilder.Entity("Web_Application_with_Identity.Models.PostTag", b =>
-                {
-                    b.HasOne("Web_Application_with_Identity.Models.Post", "Post")
-                        .WithMany("PostTags")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Web_Application_with_Identity.Models.Tag", "Tag")
-                        .WithMany("PostTags")
-                        .HasForeignKey("TagId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Post");
-
-                    b.Navigation("Tag");
+                    b.Navigation("Restaurant");
                 });
 
             modelBuilder.Entity("Web_Application_with_Identity.Models.Category", b =>
                 {
                     b.Navigation("Posts");
-                });
-
-            modelBuilder.Entity("Web_Application_with_Identity.Models.Post", b =>
-                {
-                    b.Navigation("PostTags");
-                });
-
-            modelBuilder.Entity("Web_Application_with_Identity.Models.Tag", b =>
-                {
-                    b.Navigation("PostTags");
                 });
 #pragma warning restore 612, 618
         }

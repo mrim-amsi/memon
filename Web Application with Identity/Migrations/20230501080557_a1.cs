@@ -5,10 +5,23 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Web_Application_with_Identity.Migrations
 {
-    public partial class f : Migration
+    public partial class a1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Ads",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ads", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -54,7 +67,8 @@ namespace Web_Application_with_Identity.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -62,16 +76,19 @@ namespace Web_Application_with_Identity.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tags",
+                name: "Restaurants",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Logo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tags", x => x.Id);
+                    table.PrimaryKey("PK_Restaurants", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -181,7 +198,7 @@ namespace Web_Application_with_Identity.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Posts",
+                name: "Meals",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -190,61 +207,55 @@ namespace Web_Application_with_Identity.Migrations
                     Body = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ImageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CategoryId = table.Column<int>(type: "int", nullable: false)
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    RestaurantId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Posts", x => x.Id);
+                    table.PrimaryKey("PK_Meals", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Posts_Categories_CategoryId",
+                        name: "FK_Meals_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Meals_Restaurants_RestaurantId",
+                        column: x => x.RestaurantId,
+                        principalTable: "Restaurants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "PostTags",
-                columns: table => new
+            migrationBuilder.InsertData(
+                table: "Ads",
+                columns: new[] { "Id", "Image" },
+                values: new object[,]
                 {
-                    PostId = table.Column<int>(type: "int", nullable: false),
-                    TagId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PostTags", x => new { x.PostId, x.TagId });
-                    table.ForeignKey(
-                        name: "FK_PostTags_Posts_PostId",
-                        column: x => x.PostId,
-                        principalTable: "Posts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PostTags_Tags_TagId",
-                        column: x => x.TagId,
-                        principalTable: "Tags",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                    { 1, "70057997-dd89-4629-97ff-317db877444a.png" },
+                    { 2, "551dfb30-6e08-4f97-b69b-89a2a3f7f509.png" },
+                    { 3, "01187183-441a-48f6-9645-9e18514d7047.png" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Categories",
-                columns: new[] { "Id", "Name" },
+                columns: new[] { "Id", "ImageName", "Name" },
                 values: new object[,]
                 {
-                    { 1, "مأكولات" },
-                    { 2, "ملابس" },
-                    { 3, "أثاث" }
+                    { 1, "70057997-dd89-4629-97ff-317db877444a.png", "أثاث" },
+                    { 2, "551dfb30-6e08-4f97-b69b-89a2a3f7f509.png", "مأكولات" },
+                    { 3, "01187183-441a-48f6-9645-9e18514d7047.png", "ملابس" }
                 });
 
             migrationBuilder.InsertData(
-                table: "Tags",
-                columns: new[] { "Id", "Name" },
-                values: new object[,]
-                {
-                    { 1, "Sport" },
-                    { 2, "Angular" }
-                });
+                table: "Restaurants",
+                columns: new[] { "Id", "Address", "Image", "Logo", "Name" },
+                values: new object[] { 1, "الطائف", "2d97e392-4a1c-41be-b879-6b6ac77071a7.png", "0a83cc23-0b13-4749-89a1-3469f667175b.png", "KFC" });
+
+            migrationBuilder.InsertData(
+                table: "Meals",
+                columns: new[] { "Id", "Body", "CategoryId", "CreatedAt", "ImageName", "RestaurantId", "Title" },
+                values: new object[] { 8, "mypost Dess", 3, new DateTime(2023, 5, 1, 11, 5, 57, 26, DateTimeKind.Local).AddTicks(1453), "cfd9d7be-eb03-4176-adc1-0c909d0fd961.png", 1, "أكل" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -286,18 +297,21 @@ namespace Web_Application_with_Identity.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Posts_CategoryId",
-                table: "Posts",
+                name: "IX_Meals_CategoryId",
+                table: "Meals",
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PostTags_TagId",
-                table: "PostTags",
-                column: "TagId");
+                name: "IX_Meals_RestaurantId",
+                table: "Meals",
+                column: "RestaurantId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Ads");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -314,7 +328,7 @@ namespace Web_Application_with_Identity.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "PostTags");
+                name: "Meals");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -323,13 +337,10 @@ namespace Web_Application_with_Identity.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Posts");
-
-            migrationBuilder.DropTable(
-                name: "Tags");
-
-            migrationBuilder.DropTable(
                 name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "Restaurants");
         }
     }
 }

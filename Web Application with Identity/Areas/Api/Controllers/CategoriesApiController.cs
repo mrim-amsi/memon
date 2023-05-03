@@ -2,6 +2,9 @@
 using Web_Application_with_Identity.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
+using System.Xml;
+using Newtonsoft.Json;
+using Web_Application_with_Identity;
 
 namespace Web_Application_with_Identity.Areas.Api.Controllers
 {
@@ -16,68 +19,69 @@ namespace Web_Application_with_Identity.Areas.Api.Controllers
             _context = postDbContext;
             _hostEnvironment = webHostEnvironment;
         }
-        public IActionResult Get()
-        {
-            List<Category> categories =
-                _context.Categories.Include(x => x.Posts).ToList();
 
-            return Ok(categories);
-        }
+public ActionResult Get()
+{
+    List<Category> categories =
+        _context.Categories.ToList();
 
-        public IActionResult Post(AddCategoryVM category)
-        {
+    return Ok(categories);
+}
 
-            var uploadFolder = Path.Combine(_hostEnvironment.WebRootPath, "Images");
-            var uniqueName = Guid.NewGuid().ToString() + Path.GetExtension(category.Image.FileName);
-            // ->0f8fad5b-d9cb-469f-a165-70867728950e.jpg
+public IActionResult Post(AddCategoryVM category)
+{
 
-            var filePath = Path.Combine(uploadFolder, uniqueName);
+    var uploadFolder = Path.Combine(_hostEnvironment.WebRootPath, "Images");
+    var uniqueName = Guid.NewGuid().ToString() + Path.GetExtension(category.Image.FileName);
+    // ->0f8fad5b-d9cb-469f-a165-70867728950e.jpg
 
-            //webserver/Images/0f8fad5b-d9cb-469f-a165-70867728950e.jpg
-            category.Image.CopyTo(new FileStream(filePath, FileMode.Create));
+    var filePath = Path.Combine(uploadFolder, uniqueName);
 
-
-            var categoryAdded = new Category
-            {
-                Name = category.Name,
-                ImageName = uniqueName
-            };
+    //webserver/Images/0f8fad5b-d9cb-469f-a165-70867728950e.jpg
+    category.Image.CopyTo(new FileStream(filePath, FileMode.Create));
 
 
-            _context.Categories.Add(categoryAdded);
-
-            _context.SaveChanges();
-
-           
-
-            return Ok("Done");
-        }
-        public IActionResult Addd(AddCategoryVM category)
-        {
-
-            var uploadFolder = Path.Combine(_hostEnvironment.WebRootPath, "Images");
-            var uniqueName = Guid.NewGuid().ToString() + Path.GetExtension(category.Image.FileName);
-            // ->0f8fad5b-d9cb-469f-a165-70867728950e.jpg
-
-            var filePath = Path.Combine(uploadFolder, uniqueName);
-
-            //webserver/Images/0f8fad5b-d9cb-469f-a165-70867728950e.jpg
-            category.Image.CopyTo(new FileStream(filePath, FileMode.Create));
+    var categoryAdded = new Category
+    {
+        Name = category.Name,
+        ImageName = uniqueName
+    };
 
 
-            var categoryAdded = new Category
-            {
-                Name = category.Name,
-                ImageName = uniqueName
-            };
+    _context.Categories.Add(categoryAdded);
+
+    _context.SaveChanges();
 
 
-            _context.Categories.Add(categoryAdded);
 
-            _context.SaveChanges();
+    return Ok("Done");
+}
+public IActionResult Addd(AddCategoryVM category)
+{
 
-            TempData["success"] = "Successfully Added";
-            return Ok("Done");
-        }
+    var uploadFolder = Path.Combine(_hostEnvironment.WebRootPath, "Images");
+    var uniqueName = Guid.NewGuid().ToString() + Path.GetExtension(category.Image.FileName);
+    // ->0f8fad5b-d9cb-469f-a165-70867728950e.jpg
+
+    var filePath = Path.Combine(uploadFolder, uniqueName);
+
+    //webserver/Images/0f8fad5b-d9cb-469f-a165-70867728950e.jpg
+    category.Image.CopyTo(new FileStream(filePath, FileMode.Create));
+
+
+    var categoryAdded = new Category
+    {
+        Name = category.Name,
+        ImageName = uniqueName
+    };
+
+
+    _context.Categories.Add(categoryAdded);
+
+    _context.SaveChanges();
+
+    TempData["success"] = "Successfully Added";
+    return Ok("Done");
+}
     }
 }

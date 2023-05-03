@@ -1,4 +1,4 @@
-﻿@model List<Post>
+﻿@model List<meal>
 @{
 }
 
@@ -30,13 +30,13 @@
             <td>
                 Category
             </td>
-            <td>
+          @*  <td>
                 Tags
-            </td>
+            </td>*@
         </tr>
     </thead>
     <tbody>
-        @foreach (Post item in Model)
+        @foreach (meal item in Model)
         {
             <tr>
                 <td>
@@ -54,12 +54,12 @@
                 <td>
                     @item.Category.Name
                 </td>
-                <td>
+             @*   <td>
                     @foreach (var tag in item.PostTags)
                     {
                         @tag.Tag.Name
                     }
-                </td>
+                </td>*@
 
             </tr>
         }

@@ -11,10 +11,12 @@ namespace Web_Application_with_Identity
         public string Body { get; set; }
 
         public int CategoryId { get; set; }
+        public int RestaurantId { get; set; }
 
         public IFormFile Image { get; set; }
 
         public IEnumerable<SelectListItem> categories { get; set; }
+        public IEnumerable<SelectListItem> restaurants { get; set; }
 
     }
 }
