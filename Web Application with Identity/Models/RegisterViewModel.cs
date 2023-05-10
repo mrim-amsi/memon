@@ -6,7 +6,6 @@ namespace Web_Application_with_Identity.Models
     public class RegisterViewModel
     {
         [Required]
-        [EmailAddress]
         public string Email { get; set; }
         [Required]
         [DataType(DataType.Password)]

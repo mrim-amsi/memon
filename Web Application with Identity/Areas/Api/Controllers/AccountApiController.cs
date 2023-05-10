@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Web_Application_with_Identity.Models;
 
 namespace Web_Application_with_Identity.Areas.Api.Controllers
@@ -40,23 +41,45 @@ namespace Web_Application_with_Identity.Areas.Api.Controllers
 
 
 
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        public async Task<IActionResult> Register(string phoneNumber,string userName)
+
         {
+            var userExsit = await _signInManager.UserManager.Users
+                   .SingleOrDefaultAsync(x => x.PhoneNumber == phoneNumber);
+
+            if (userExsit != null)
+            {
+                return Ok(new statusUser
+                {
+                    applicationUser = userExsit,
+                    message = "هذا الرقم مسجل من قبل حاول تسجيل الدخول ",
+                    boolStatus= false,
+                    numStatus= 400,
+                });
+            }
+
             if (ModelState.IsValid)
             {
                 var user = new IdentityUser
                 {
-                    UserName = model.Email,
-                    Email = model.Email,
+                    UserName = userName,
+                    Email = userName,
+                    PhoneNumber = phoneNumber,
                 };
 
-                var result = await _userManager.CreateAsync(user, model.Password);
+                var result = await _userManager.CreateAsync(user, "A123456as#");
 
                 if (result.Succeeded)
                 {
                     await _signInManager.SignInAsync(user, isPersistent: false);
 
-                    return Ok(user);
+                    return Ok(new statusUser
+                    {
+                        applicationUser = userExsit,
+                        message = "تم تسجيل مستخدم جديد بنجاح",
+                        boolStatus = true,
+                        numStatus = 200,
+                    });
                 }
 
                 foreach (var error in result.Errors)
@@ -70,21 +93,43 @@ namespace Web_Application_with_Identity.Areas.Api.Controllers
             return BadRequest(ModelState);
         }
 
-        public async Task<ActionResult> Login(LoginViewModel user)
+        public async Task<ActionResult> Login(string phoneNumber)
         {
-            if (ModelState.IsValid)
+
+            var user = await _signInManager.UserManager.Users
+                   .SingleOrDefaultAsync(x => x.PhoneNumber == phoneNumber);
+
+            if (user != null)
             {
-                var result = await _signInManager.PasswordSignInAsync(user.Email, user.Password, user.RememberMe, false);
-
-                if (result.Succeeded)
+                return Ok(new statusUser
                 {
-                    return Ok(user);
-                }
-
-                ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
-                return Ok(result);
+                    applicationUser = user,
+                    message = "تم تسجيل الدخول بنجاح",
+                    boolStatus = true,
+                    numStatus = 200,
+                });
             }
-            return Ok("Invalid Login Attempt");
+
+
+            //if (ModelState.IsValid)
+            //{
+            //    var result = await _signInManager.PasswordSignInAsync(user.Email, user.PasswordHash,true, false);
+
+            //    if (result.Succeeded)
+            //    {
+            //        return Ok(user);
+            //    }
+
+            //    ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
+            //    return Ok(result);
+            //}
+            return Ok(new statusUser
+            {
+                applicationUser = user,
+                message = "هذا الرقم لايوجد لديه حساب يرجى تسجل مستخدم جديد",
+                boolStatus = false,
+                numStatus = 400,
+            });
         }
 
 

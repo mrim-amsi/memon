@@ -17,7 +17,7 @@ namespace Web_Application_with_Identity.Areas.Api.Controllers
             _hostEnvironment = webHostEnvironment;
         }
 
-
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
             List<meal> posts = _context.Meals
