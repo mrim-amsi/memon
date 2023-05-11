@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Web_Application_with_Identity.Models;
 
-namespace Web_Application_with_Identity.Areas.Api.Controllers
+namespace Web_Application_with_Identity.Controllers.Api
 {
+    [ApiController]
+    [Route("Api/[controller]")]
     public class AccountApiController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
@@ -17,6 +19,8 @@ namespace Web_Application_with_Identity.Areas.Api.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
+        [HttpGet]
+        [Route("SallonBranches/GetUser")]
 
         public async Task<ActionResult<IdentityUser>> GetUser(string username)
         {
@@ -29,19 +33,23 @@ namespace Web_Application_with_Identity.Areas.Api.Controllers
 
             return user;
         }
+        //[HttpGet]
+        //[Route("SallonBranches/GetUsers")]
 
-        public async Task<ActionResult> GetUsers(LoginViewModel a)
-        {
-            var result = await _signInManager.PasswordSignInAsync(a.Email, a.Password, false, false);
-
-
-
-            return Ok(a.Email);
-        }
+        //public async Task<ActionResult> GetUsers(LoginViewModel a)
+        //{
+        //    var result = await _signInManager.PasswordSignInAsync(a.Email, a.Password, false, false);
 
 
 
-        public async Task<IActionResult> Register(string phoneNumber,string userName)
+        //    return Ok(a.Email);
+        //}
+
+
+        [HttpPost]
+        [Route("Register")]
+
+        public async Task<IActionResult> Register(string phoneNumber, string userName)
 
         {
             var userExsit = await _signInManager.UserManager.Users
@@ -53,8 +61,8 @@ namespace Web_Application_with_Identity.Areas.Api.Controllers
                 {
                     applicationUser = userExsit,
                     message = "هذا الرقم مسجل من قبل حاول تسجيل الدخول ",
-                    boolStatus= false,
-                    numStatus= 400,
+                    boolStatus = false,
+                    numStatus = 400,
                 });
             }
 
@@ -92,6 +100,8 @@ namespace Web_Application_with_Identity.Areas.Api.Controllers
             }
             return BadRequest(ModelState);
         }
+        [HttpPost]
+        [Route("Login")]
 
         public async Task<ActionResult> Login(string phoneNumber)
         {

@@ -24,12 +24,12 @@
             <td>
                 Title
             </td>
-            <td>
+            @*<td>
                 Created at
             </td>
-            <td>
+           <td>
                 Category
-            </td>
+            </td>*@
           @*  <td>
                 Tags
             </td>*@
@@ -48,12 +48,12 @@
                 <td>
                     @item.Title
                 </td>
-                <td>
+                @* <td>
                     @item.CreatedAt.ToString("dd/MM/yyyy")
                 </td>
-                <td>
-                    @item.Category.Name
-                </td>
+               <td>
+                  @item.Category.Name
+                </td>*@
              @*   <td>
                     @foreach (var tag in item.PostTags)
                     {

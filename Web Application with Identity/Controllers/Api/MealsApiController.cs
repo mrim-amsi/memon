@@ -3,9 +3,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Web_Application_with_Identity.Models;
 
-namespace Web_Application_with_Identity.Areas.Api.Controllers
+namespace Web_Application_with_Identity.Controllers.Api
 {
-
+    [ApiController]
+    [Route("Api/[controller]")]
     public class MealsApiController : ControllerBase
     {
         private readonly AppDBContext _context;
@@ -18,6 +19,7 @@ namespace Web_Application_with_Identity.Areas.Api.Controllers
         }
 
         [HttpGet]
+        [Route("Get")]
         public async Task<IActionResult> Get()
         {
             List<meal> posts = _context.Meals
@@ -26,7 +28,8 @@ namespace Web_Application_with_Identity.Areas.Api.Controllers
             return Ok(posts);
         }
 
-
+        [HttpPost]
+        [Route("Post")]
         public IActionResult Post(AddPostVM post)
         {
 

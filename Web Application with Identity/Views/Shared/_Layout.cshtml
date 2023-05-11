@@ -28,7 +28,7 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" href="/account/Logout">Logout</a>
+                                <a class="nav-link text-dark" asp-controller="account" asp-action="Logout">Logout</a>
                             </li>
                         </ul>
                     }
@@ -36,10 +36,10 @@
                     {
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link text-dark" href="/account/login">Login</a>
+                                <a class="nav-link text-dark" asp-controller="account" asp-action="login">Login</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" href="/account/register">Register</a>
+                                <a class="nav-link text-dark" asp-controller="account" asp-action="register">Register</a>
                             </li>
                         </ul>
                     }
