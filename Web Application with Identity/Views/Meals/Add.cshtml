@@ -2,19 +2,32 @@
 @{
 }
 
-
+<div class="m-3">
 <form asp-action="Add" method="post" enctype="multipart/form-data">
-    <label asp-for="Title"></label>
-    <input class="form-control" asp-for="Title" />
+    <div class="mb-3">
+    <label asp-for="Title" class="form-label"></label>
+        <input class="form-control" asp-for="Title" />
+    </div>
+    <div class="mb-3">
     <label asp-for="Body"></label>
-    <input class="form-control" asp-for="Body" />
-    <label asp-for="CategoryId"></label>
+        <input class="form-control" asp-for="Body" />
+    </div>
+    <div class="mb-3">
+    <label asp-for="CategoryId" class="form-label"></label>
     <select class="form-control" asp-for="CategoryId" asp-items="Model.categories">
-    </select>
-    <label asp-for="RestaurantId"></label>
+        </select>
+    </div>
+    <div class="mb-3">
+    <label asp-for="RestaurantId" class="form-label"></label>
     <select class="form-control" asp-for="RestaurantId" asp-items="Model.restaurants">
-    </select>
-    <input type="file" asp-for="Image" />
+        </select>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Image" class="form-label"></label>
+        <input type="file" asp-for="Image" />
+    </div>
     <hr />
-    <input type="submit" value="Add Post" />
-</form>
+        <input type="submit" class="btn btn-primary" value="Add Post" />
+    </form>
+</div>
+

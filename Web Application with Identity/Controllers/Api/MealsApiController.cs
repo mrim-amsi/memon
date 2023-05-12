@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using Web_Application_with_Identity.Models;
 
 namespace Web_Application_with_Identity.Controllers.Api
@@ -17,7 +19,21 @@ namespace Web_Application_with_Identity.Controllers.Api
             _context = postDbContext;
             _hostEnvironment = webHostEnvironment;
         }
-
+        //[HttpPut]
+        //public async Task<IActionResult> Put()
+        //{
+        //    var userExsit = await _context.Meals.SingleOrDefaultAsync(x => x.Id == 10);
+        //    var userExsit1 = await _context.Meals.SingleOrDefaultAsync(x => x.Id == 11);
+        //    var userExsit2 = await _context.Meals.SingleOrDefaultAsync(x => x.Id == 8);
+        //    userExsit.Body = "ساندوتش برجر لحم كلاسيك . قطعة برجر لحم، كابوتشا، شريحة طماطم، بصل، شريحة جبنة شيدر، خيار مخلل و مايونيز، يقدم في خبز كيزر";
+        //    userExsit1.Body = "ساندوتش برجر لحم كلاسيك . قطعة برجر لحم، كابوتشا، شريحة طماطم، بصل، شريحة جبنة شيدر، خيار مخلل و مايونيز، يقدم في خبز كيزر";
+        //    userExsit2.Body = "ساندوتش برجر لحم كلاسيك . قطعة برجر لحم، كابوتشا، شريحة طماطم، بصل، شريحة جبنة شيدر، خيار مخلل و مايونيز، يقدم في خبز كيزر";
+        //    _context.Meals.Update(userExsit);
+        //    _context.Meals.Update(userExsit1);
+        //    _context.Meals.Update(userExsit2);
+        //    await _context.SaveChangesAsync();
+        //    return Ok(userExsit);
+        //}
         [HttpGet]
         [Route("Get")]
         public async Task<IActionResult> Get()

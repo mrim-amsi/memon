@@ -2,12 +2,18 @@
 @{
 }
 
+<div class="m-5">
 
 <form asp-action="Add" method="post" enctype="multipart/form-data">
-    <label asp-for="Name"></label>
-    <input class="form-control" asp-for="Name" />
-
-    <input type="file" asp-for="Image" />
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label"></label>
+        <input class="form-control" asp-for="Name" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Image" class="form-label"></label>
+        <input class="form-control"  type="file" asp-for="Image" />
+    </div>
     <hr />
-    <input type="submit" value="Add Category" />
-</form>
+    <input type="submit" class="btn btn-primary" value="Add Category" />
+    </form>
+</div>

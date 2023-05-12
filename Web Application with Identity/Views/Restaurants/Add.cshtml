@@ -1,0 +1,27 @@
+﻿@model RestaurantVM
+@{
+}
+
+<div class="m-5">
+
+<form asp-action="Add" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label"></label>
+        <input class="form-control" asp-for="Name" />
+    </div>
+        <div class="mb-3">
+            <label asp-for="Logo" class="form-label"></label>
+            <input class="form-control" type="file" asp-for="Logo" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Address" class="form-label"></label>
+            <input class="form-control" asp-for="Address" />
+        </div>
+    <div class="mb-3">
+        <label asp-for="Image" class="form-label"></label>
+        <input class="form-control"  type="file" asp-for="Image" />
+    </div>
+    <hr />
+        <input type="submit" class="btn btn-primary" value="Add Restaurants" />
+    </form>
+</div>

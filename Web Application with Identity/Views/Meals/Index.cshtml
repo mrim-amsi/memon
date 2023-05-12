@@ -1,9 +1,6 @@
 ﻿@model List<meal>
 @{
 }
-
-<a class="btn btn-primary" asp-action="Add" asp-controller="Post">Add Post</a>
-
 @if (TempData["success"] != null)
 {
     <div class="alert alert-success">
@@ -11,7 +8,7 @@
     </div>
 }
 
-
+@*
 <table class="table">
     <thead>
         <tr>
@@ -33,11 +30,78 @@
           @*  <td>
                 Tags
             </td>*@
-        </tr>
+        >@*</tr
     </thead>
     <tbody>
         @foreach (meal item in Model)
         {
+            <tr>
+                <td>
+                    <img style="width:50px;height:50px; object-fit:cover; border-radius:50%;" src="~/Images/@item.ImageName" />
+                </td>
+                <td>
+                    @item.Id
+                </td>
+                <td>
+                    @item.Title
+                </td>*@
+                @* <td>
+                    @item.CreatedAt.ToString("dd/MM/yyyy")
+                </td>
+               <td>
+                  @item.Category.Name
+                </td>*@
+             @*   <td>
+                    @foreach (var tag in item.PostTags)
+                    {
+                        @tag.Tag.Name
+                    }
+                </td>*@
+@*
+            </tr>
+        }
+    </tbody>
+</table>
+*@
+
+
+
+
+<main>
+    <div class="">
+        <h1 class="mt-4">الوجبات</h1>
+        <ol class="breadcrumb mb-4">
+                         <li class="breadcrumb-item"> </a></li>
+                    <li class="breadcrumb-item active"><a href="index.html">لوحة التحكم</a></li>
+                    <li class="">الوجبات</li>
+        </ol>
+                <div class="d-flex justify-content-end m-5">
+            <a class="btn btn-primary" asp-action="Add" asp-controller="Meals">أضافة وجبة</a>
+        </div>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+@*                DataTable Example
+*@            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>
+                                Image
+                            </td>
+                            <td>
+                                Post ID
+                            </td>
+                            <td>
+                                Title
+                            </td>
+                           </tr
+                            </thead>
+                            <tbody>
+
+             @foreach (meal item in Model)
+             {
             <tr>
                 <td>
                     <img style="width:50px;height:50px; object-fit:cover; border-radius:50%;" src="~/Images/@item.ImageName" />
@@ -65,3 +129,7 @@
         }
     </tbody>
 </table>
+            </div>
+        </div>
+    </div>
+</main>

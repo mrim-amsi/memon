@@ -4,9 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using System.Xml;
 //using Newtonsoft.Json;
-using Web_Application_with_Identity;
 
-namespace Web_Application_with_Identity.Controllers
+namespace Web_Application_with_Identity.Controllers.Api
 {
     [ApiController]
     [Route("Api/[controller]")]

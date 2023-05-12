@@ -2,7 +2,7 @@
 using Web_Application_with_Identity.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Web_Application_with_Identity.Controllers.Api
+namespace Web_Application_with_Identity.Controllers
 {
     public class CategoriesController : Controller
     {

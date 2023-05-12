@@ -1,4 +1,4 @@
-﻿@model List<Category>
+﻿@model List<Restaurant>
 @{}
 
 @if (TempData["success"] != null)
@@ -55,15 +55,15 @@
 
         <main>
             <div class="">
-        <h1 class="mt-4">التصنيفات</h1>
+        <h1 class="mt-4">المطاعم</h1>
                 <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item"> </a></li>
-                    <li class="breadcrumb-item active"><a href="index.html">لوحة التحكم</a></li>
-                    <li class=""><a href="index.html">التصنيفات </a></li>
+            <li class="breadcrumb-item"> </a></li>
+            <li class="breadcrumb-item active"><a href="index.html">لوحة التحكم</a></li>
+            <li class="">المطاعم</li>
 
                  </ol>
         <div class="d-flex justify-content-end m-5">
-            <a class="btn btn-primary" asp-action="Add" asp-controller="Categories">أضافة تصنيف</a>
+            <a class="btn btn-primary" asp-action="Add" asp-controller="Restaurants">أضافة مطعم</a>
         </div>
                 <div class="card mb-4">
                     <div class="card-header">
@@ -76,16 +76,19 @@
                         <table class="table">
                             <thead>
                                 <tr>
+                            <td>
+                                أسم المطعم
+                            </td>
+                            <td>
+                                شعار
+                            </td>
                                     <td>
-                                        Image
+                                العنوان 
                                     </td>
-                                    <td>
-                                        Post ID
-                                    </td>
-                                    <td>
-                                        Title
-                                    </td>
-                                    @*<td>
+                            <td>
+                                 واجهة للمطعم
+                            </td>
+                            @*<td>
                                         Created at
                                     </td>
                                     <td>
@@ -97,18 +100,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (Category item in Model)
+                        @foreach (Restaurant item in Model)
                                 {
                                     <tr>
                                         <td>
-                                            <img style="width:50px;height:50px; object-fit:cover; border-radius:50%;" src="~/Images/@item.ImageName" />
-                                        </td>
-                                        <td>
-                                            @item.Id
-                                        </td>
-                                        <td>
                                             @item.Name
                                         </td>
+                                        <td>
+                                       <img style="width:50px;height:50px; object-fit:cover; border-radius:50%;" src="~/Images/@item.Logo" />
+                                       </td>
+                                        <td>
+                                            @item.Address
+                                        </td>
+                                        <td>
+                                    <img style="width:50px;height:50px; object-fit:cover; border-radius:50%;" src="~/Images/@item.Image" />
+                                </td>
                                     </tr>
                                 }
                             </tbody>
