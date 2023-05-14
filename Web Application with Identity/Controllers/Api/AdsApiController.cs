@@ -28,6 +28,15 @@ namespace Web_Application_with_Identity.Controllers.Api
 
             return Ok(Ads);
         }
+        [HttpDelete]
+        public async Task<IActionResult> Remove(int id)
+        {
+            var ads = await _context.Ads.FindAsync(id);
+            _context.Ads.Remove(ads);
+            await _context.SaveChangesAsync();
+            return Ok(1);
+
+        }
 
     }
 }

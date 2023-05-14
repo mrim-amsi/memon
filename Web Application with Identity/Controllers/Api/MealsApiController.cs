@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Web_Application_with_Identity.Models;
-
 namespace Web_Application_with_Identity.Controllers.Api
 {
     [ApiController]
@@ -25,10 +24,9 @@ namespace Web_Application_with_Identity.Controllers.Api
         //    var userExsit = await _context.Meals.SingleOrDefaultAsync(x => x.Id == 10);
         //    var userExsit1 = await _context.Meals.SingleOrDefaultAsync(x => x.Id == 11);
         //    var userExsit2 = await _context.Meals.SingleOrDefaultAsync(x => x.Id == 8);
-        //    userExsit.Body = "ساندوتش برجر لحم كلاسيك . قطعة برجر لحم، كابوتشا، شريحة طماطم، بصل، شريحة جبنة شيدر، خيار مخلل و مايونيز، يقدم في خبز كيزر";
-        //    userExsit1.Body = "ساندوتش برجر لحم كلاسيك . قطعة برجر لحم، كابوتشا، شريحة طماطم، بصل، شريحة جبنة شيدر، خيار مخلل و مايونيز، يقدم في خبز كيزر";
-        //    userExsit2.Body = "ساندوتش برجر لحم كلاسيك . قطعة برجر لحم، كابوتشا، شريحة طماطم، بصل، شريحة جبنة شيدر، خيار مخلل و مايونيز، يقدم في خبز كيزر";
-        //    _context.Meals.Update(userExsit);
+        //    userExsit.Title = "وجبة بحرية";
+        //    userExsit1.Title =" بيف بيرجر كلاسيك";
+        //    userExsit2.Title = "سلطة الأفوكادو";
         //    _context.Meals.Update(userExsit1);
         //    _context.Meals.Update(userExsit2);
         //    await _context.SaveChangesAsync();
@@ -76,6 +74,41 @@ namespace Web_Application_with_Identity.Controllers.Api
             _context.SaveChanges();
 
             return Ok("Done");
+        }
+
+        [HttpPost]
+        [Route("PostRestauranId")]
+        public async Task<IActionResult> PostRestauranId(int id)
+        {
+            var meals = await _context.Meals.Include(n => n.Restaurant).Where(x => x.Restaurant.Id == id).ToListAsync();
+            if (meals != null)
+            {
+                return Ok(meals);
+            }
+
+            return NotFound();
+        }
+        [HttpGet]
+        [Route("feature")]
+        public async Task<IActionResult> feature()
+        {
+            var meals = await _context.Meals.Include(n => n.Restaurant).OrderBy(i => i.Id).Take(3)
+                .ToListAsync();
+            if (meals != null)
+            {
+                return Ok(meals);
+            }
+
+            return NotFound();
+        }
+        [HttpDelete]
+        public async Task<IActionResult> Remove(int id)
+        {
+            var meals = await _context.Meals.FindAsync(id);
+            _context.Meals.Remove(meals);
+            await _context.SaveChangesAsync();
+            return Ok(1);
+
         }
     }
 }

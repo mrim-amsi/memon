@@ -12869,3 +12869,6 @@ body {
 div:nth-child(14){
     display:none !important;
 }
+.datatable-table > thead > tr > th {
+    text-align:right;
+}

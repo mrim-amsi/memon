@@ -73,21 +73,21 @@
                     <div class="card-body">
 
 
-                        <table class="table">
-                            <thead>
-                                <tr>
-                            <td>
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>
                                 أسم المطعم
-                            </td>
-                            <td>
+                            </th>
+                            <th>
                                 شعار
-                            </td>
-                                    <td>
-                                العنوان 
-                                    </td>
-                            <td>
+                            </th>
+                            <th>
+                                العنوان
+                            </th>
+                            <th>
                                  واجهة للمطعم
-                            </td>
+                            </th>
                             @*<td>
                                         Created at
                                     </td>
@@ -97,6 +97,9 @@
                                     <td>
                                         Tags
                                     </td>*@
+                            <th>
+                                افعال
+                            </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -114,6 +117,24 @@
                                         </td>
                                         <td>
                                     <img style="width:50px;height:50px; object-fit:cover; border-radius:50%;" src="~/Images/@item.Image" />
+                                </td>
+                                <td class="text-center">
+
+                                    <form asp-controller="Restaurants" asp-action="Edit" method="post" style="display: inline;">
+                                        <input value="@item.Id" hidden name="id" />
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fa fa-edit"></i>
+                                            تعديل
+                                        </button>
+
+                                    </form>
+                                    <form asp-controller="Restaurants" asp-action="Remove" method="post" asp-route-id="@item.Id" style="display: inline;">
+                                        <button type="submit" class="btn btn-danger">
+                                            <i class="bi bi-trash"></i>
+                                            حدف
+                                        </button>
+
+                                    </form>
                                 </td>
                                     </tr>
                                 }

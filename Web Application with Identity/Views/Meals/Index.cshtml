@@ -83,20 +83,38 @@
                 <i class="fas fa-table me-1"></i>
 @*                DataTable Example
 *@            </div>
+
+
+
             <div class="card-body">
-                <table class="table">
+                <table id="datatablesSimple">
                     <thead>
                         <tr>
-                            <td>
-                                Image
-                            </td>
-                            <td>
-                                Post ID
-                            </td>
-                            <td>
-                                Title
-                            </td>
-                           </tr
+                            <th>
+                                 صورة الوجبة
+                            </th>
+                            <th>
+                                رقم الوجبة
+                            </th>
+                            <th>
+                                اسم الوجبة
+                            </th>
+                            <th>
+                                الوصف
+                            </th>
+                            <th>
+                                السعر
+                            </th>
+                            <th>
+                               اسم المطعم
+                            </th>
+                            <th>
+                                 الكمية
+                            </th>
+                            <th>
+                                افعال
+                            </th>
+                           </tr>
                             </thead>
                             <tbody>
 
@@ -112,6 +130,18 @@
                 <td>
                     @item.Title
                 </td>
+                 <td>
+                    @item.Body
+                </td>
+                 <td>
+                  @item.Price
+                </td>
+                 <td>
+                  @item.Restaurant.Name
+                 </td>
+                  <td>
+                  @item.Quantity
+                   </td>
                 @* <td>
                     @item.CreatedAt.ToString("dd/MM/yyyy")
                 </td>
@@ -124,7 +154,23 @@
                         @tag.Tag.Name
                     }
                 </td>*@
+                <td class="text-center">
 
+                                    <form asp-controller="Meals" asp-action="Edit" method="post" style="display: inline;">
+                                        <input value="@item.Id" hidden name="id" />
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fa fa-edit"></i>
+                                            تعديل
+                                        </button>
+
+                                    </form>
+                                    <form asp-controller="Meals" asp-action="Remove" method="post" asp-route-id="@item.Id" style="display: inline;">
+                                        <button type="submit" class="btn btn-danger">
+                                            <i class="bi bi-trash"></i>
+                                            حدف
+                                        </button>
+
+                                    </form></td>
             </tr>
         }
     </tbody>

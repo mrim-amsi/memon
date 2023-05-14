@@ -59,5 +59,14 @@ namespace Web_Application_with_Identity.Controllers
             TempData["success"] = "Successfully Added";
             return RedirectToAction(nameof(Index));
         }
+        [HttpDelete]
+        public async Task<IActionResult> Remove(int id)
+        {
+            var categories = await _context.Categories.FindAsync(id);
+            _context.Categories.Remove(categories);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+
+        }
     }
 }

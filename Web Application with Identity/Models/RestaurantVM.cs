@@ -5,6 +5,6 @@
         public string Name { get; set; }
         public IFormFile Logo { get; set; }
         public IFormFile Image { get; set; }
-        public string Address { get; set; }
+        public Location Location { get; set; }
     }
 }

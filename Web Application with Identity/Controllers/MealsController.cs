@@ -17,18 +17,10 @@ namespace Web_Application_with_Identity.Controllers
         }
         public IActionResult Index()
         {
-            List<meal> posts = _context.Meals
+            List<meal> posts = _context.Meals.Include(n => n.Restaurant)
                 .ToList();
 
             return View(posts);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> posts()
-        {
-            List<meal> posts = _context.Meals.ToList();
-
-            return Ok(posts);
         }
 
         [HttpGet]
@@ -63,7 +55,9 @@ namespace Web_Application_with_Identity.Controllers
                 Title = post.Title,
                 Body = post.Body,
                 CategoryId = post.CategoryId,
-                ImageName = uniqueName
+                ImageName = uniqueName,
+                RestaurantId = post.RestaurantId,
+
             };
 
 
@@ -76,6 +70,14 @@ namespace Web_Application_with_Identity.Controllers
 
             TempData["success"] = "Successfully Added";
             return RedirectToAction(nameof(Index));
+        }
+        public async Task<IActionResult> Remove(int id)
+        {
+            var meals = await _context.Meals.FindAsync(id);
+            _context.Meals.Remove(meals);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+
         }
     }
 }

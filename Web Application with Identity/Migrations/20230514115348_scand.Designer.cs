@@ -12,8 +12,8 @@ using Web_Application_with_Identity;
 namespace Web_Application_with_Identity.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20230501080557_a1")]
-    partial class a1
+    [Migration("20230514115348_scand")]
+    partial class scand
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -317,6 +317,12 @@ namespace Web_Application_with_Identity.Migrations
                     b.Property<string>("ImageName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
                     b.Property<int>("RestaurantId")
                         .HasColumnType("int");
 
@@ -338,8 +344,10 @@ namespace Web_Application_with_Identity.Migrations
                             Id = 8,
                             Body = "mypost Dess",
                             CategoryId = 3,
-                            CreatedAt = new DateTime(2023, 5, 1, 11, 5, 57, 26, DateTimeKind.Local).AddTicks(1453),
+                            CreatedAt = new DateTime(2023, 5, 14, 14, 53, 47, 793, DateTimeKind.Local).AddTicks(188),
                             ImageName = "cfd9d7be-eb03-4176-adc1-0c909d0fd961.png",
+                            Price = 0.0,
+                            Quantity = 0,
                             RestaurantId = 1,
                             Title = "أكل"
                         });
@@ -361,6 +369,12 @@ namespace Web_Application_with_Identity.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<double>("Lat")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Lng")
+                        .HasColumnType("float");
+
                     b.Property<string>("Logo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -379,6 +393,8 @@ namespace Web_Application_with_Identity.Migrations
                             Id = 1,
                             Address = "الطائف",
                             Image = "2d97e392-4a1c-41be-b879-6b6ac77071a7.png",
+                            Lat = 0.0,
+                            Lng = 0.0,
                             Logo = "0a83cc23-0b13-4749-89a1-3469f667175b.png",
                             Name = "KFC"
                         });

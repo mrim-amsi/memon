@@ -20,7 +20,7 @@ namespace Web_Application_with_Identity.Controllers.Api
             _signInManager = signInManager;
         }
         [HttpGet]
-        [Route("SallonBranches/GetUser")]
+        [Route("GetUser")]
 
         public async Task<ActionResult<IdentityUser>> GetUser(string username)
         {
