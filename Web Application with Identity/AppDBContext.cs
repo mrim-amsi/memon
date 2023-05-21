@@ -45,7 +45,9 @@ namespace Web_Application_with_Identity
         //public DbSet<Tag> Tags { get; set; }
         public DbSet<Ads> Ads { get; set; }
         public DbSet<Restaurant> Restaurants { get; set; }
+        public DbSet<order> orders { get; set; }
+        public DbSet<Favorite> Favorites { get; set; }
 
-       // public DbSet<PostTag> PostTags { get; set; }
+        // public DbSet<PostTag> PostTags { get; set; }
     }
 }
