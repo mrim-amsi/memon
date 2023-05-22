@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>Web_Application_with_Identity</RootNamespace>
+    <Optimize>False</Optimize>
   </PropertyGroup>
 
   <ItemGroup>
