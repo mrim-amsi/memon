@@ -149,6 +149,9 @@
         <div id="layoutSidenav_content">
     <div class="container">
         <main role="main" class="pb-3">
+                    @{
+                        Html.RenderPartial("alert");
+                    }
             @RenderBody()
         </main>
     </div>

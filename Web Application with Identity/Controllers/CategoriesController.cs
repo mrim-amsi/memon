@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Web_Application_with_Identity.Models;
 using Microsoft.EntityFrameworkCore;
+using Web_Application_with_Identity.Services;
 
 namespace Web_Application_with_Identity.Controllers
 {
@@ -59,12 +60,26 @@ namespace Web_Application_with_Identity.Controllers
             TempData["success"] = "Successfully Added";
             return RedirectToAction(nameof(Index));
         }
-        [HttpDelete]
+        
         public async Task<IActionResult> Remove(int id)
         {
             var categories = await _context.Categories.FindAsync(id);
-            _context.Categories.Remove(categories);
-            await _context.SaveChangesAsync();
+            List<meal> restaurants = _context.Meals.Where(x=> x.CategoryId==id).ToList();
+
+            if (restaurants.Count>0)
+            {
+                TempData["Message"] = "لا يمكن حدف لانه مرتبط بجداول اخرى ";
+                TempData["stats"] = "danger";
+
+            }
+            else
+            {
+                TempData["Message"] = "تم الحدف بنجاح";
+                TempData["stats"] = "success";
+                _context.Categories.Remove(categories);
+                await _context.SaveChangesAsync();
+            }
+            
             return RedirectToAction(nameof(Index));
 
         }
