@@ -44,14 +44,6 @@ This project follows the **MVC (Model-View-Controller)** pattern:
 
 ---
 
-## 📸 Screenshots
-
-<p align="center">
-  <img src="https://via.placeholder.com/800x400?text=Dashboard+Preview" />
-</p>
-
----
-
 ## 🚀 Getting Started
 
 1. Clone the repository:
